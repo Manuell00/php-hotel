@@ -72,7 +72,14 @@ $hotels = [
 ?>
 
 <!-- Inserisco un container -->
-<div class="container">
+<div class="container mt-3">
+
+<!-- Creo la form -->
+    <form class="mb-3">
+        <label for="search">Search:</label>
+        <input type="text" name="search">
+        <input type="submit" value="SEARCH">
+    </form>
 
     <!-- Creo la tabella -->
     <table class="table">
@@ -93,19 +100,45 @@ $hotels = [
             
                 <!-- Ciclo con php all'interno dell'array $keys -->
                 <?php
+                // Se non effettuo ricerca o il campo non è presente
+                if ($_GET == [] || $_GET["search"] == "") {
+
+                    // Stampo tutta la tabella
                     foreach ($hotels as $hotel) {
                         echo "<tr>";
                         foreach ($hotel as $key => $value) {
-                            echo "<td>" . $hotel[$key] . "</td>";
+                            echo "<td>" . $value . "</td>";
                         }
                         echo "</tr>";
                     };
+                }
+
+                else{
+                    // Rendo a caratteri minuscoli la mia ricerca
+                    $lSearch = strtolower($_GET["search"]);
+
+                    foreach ($hotels as $hotel) {
+                        echo "<tr>";
+                        
+                        foreach ($hotel as $key => $value) {
+                            $lvalue = strtolower($value);
+                        
+                            if (strpos($lvalue, $lSearch) !== false) {
+                                echo "<td>" . $value . "</td>";
+                            }
+                            else{
+                                echo "<td></td>";
+                                
+                            }
+                        }
+                        
+                        echo "</tr>";
+                    };
+                }
+                  
                  ?>
         </tbody>
-    
-    
     </table>
-
 </div>
 
     
