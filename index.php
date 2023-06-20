@@ -57,12 +57,56 @@ $hotels = [
 
     ];
 
-    // Stampo con il var_dump il mio array
-    echo("<pre>");
-    var_dump($hotels);
-    echo("</pre>");
+    // Creo un array vuoto dove inserire le chiavi
+    $keys = [];
+
+    // Inserisco le chiavi per ogni array associativo
+    foreach ($hotels as $hotel) {
+        foreach ($hotel as $key => $value) {
+            if (!in_array($key, $keys)) {
+                $keys[] = $key;
+            }
+        }
+    };
 
 ?>
+
+<!-- Inserisco un container -->
+<div class="container">
+
+    <!-- Creo la tabella -->
+    <table class="table">
+        <!-- Creo la riga di header dell tabella -->
+        <thead>
+            <tr>
+                <!-- Ciclo con php all'interno dell'array $keys -->
+                <?php
+                    foreach ($keys as $key){
+                        echo "<th scope = 'col'>".$key."</th>";
+                    }
+                ?>
+            </tr> 
+        </thead>
+
+        <!-- Apro il body della table -->
+        <tbody>
+            
+                <!-- Ciclo con php all'interno dell'array $keys -->
+                <?php
+                    foreach ($hotels as $hotel) {
+                        echo "<tr>";
+                        foreach ($hotel as $key => $value) {
+                            echo "<td>" . $hotel[$key] . "</td>";
+                        }
+                        echo "</tr>";
+                    };
+                 ?>
+        </tbody>
+    
+    
+    </table>
+
+</div>
 
     
 </body>
